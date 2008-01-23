@@ -1,0 +1,7 @@
+* Next
+- write rakefile
+- update from lztestkit
+- test cases
+
+* Test cases
+can i use jsspec?
