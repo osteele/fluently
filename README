@@ -1,25 +1,45 @@
 = About
 
-Fluently is a JavaScript toolkit for creating "Fluent Interfaces"[http://martinfowler.com/bliki/FluentInterface.html].  With Fluently, you can create an object thus:
+Fluently is a JavaScript toolkit for creating FluentInterfaces[http://martinfowler.com/bliki/FluentInterface.html].
+
+With Fluently, you can do this:
+    var o = Fluently.make(function(define) {
+      define('fn1', function() {console.info('called fn1')});
+      define('fn2', function() {console.info('called fn2')});
+      define('fn3', function() {return 3});
+    });
+to define an object with chained methods, that can be invoked thus:
+  o.fn1().fn2() // calls fn1 and then fn2
+  o.fn2().fn1() // calls fn2 and then fn1
+  o.fn1().fn3() // returns 3 (an explicit 'return' breaks the chain)
+
+You can also define modifiers, and aliases:
     var o = Fluently.make(function(define) {
       define('fn1', function() {console.info('called fn1')});
       define('fn2', function() {console.info('called fn2')});
       define.empty('and');
       define.alias('fn3', 'fn1');
+      define.modifier('not');
     });
-to define an object with chained methods, that can be invoked like this:
-  o.fn1().fn2()
-  o.fn2().fn3()
-  o.fn2().and.fn3()
+  
+  o.fn3(); // same as o.fn1()
+  o.fn1().and.fn2() // same as o.fn1().fn2()
+  o.fn1().and.not.fn2() // options.not is set when fn2 is called
 
-I use it to define the mocks, stubs, and expectations in LzTestKit.
+I use this to define the mocks, stubs, and expectations in LzTestKit[http://osteele.com/sources/openlaszlo/lztestkit].
 
-I've extracted a couple of files, from LzTestKit, into the 'examples'
+I've extracted a couple of files, from LzTestKit, into the examples[http://osteele.com/sources/javascript/fluently/examples/]
 directory.  These don't run on their own, but at least they show the
 code in use.
+
+You can also see a range of examples by viewing the sources to the specs[http://osteele.com/sources/javascript/fluently/specs/].
+
+= Download
+
+Get it here: {download-location}.
 
 = License
 
 Fluently is licensed under the MIT License.
 
-This package includes a distribution of jsspec, which is licensed under the GLPL.
+This package includes a distribution of jsspec, which is licensed under the LGPL.

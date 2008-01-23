@@ -1,7 +1,9 @@
 * Next
+- accept multiple modifiers
 - more test cases: modifiers, aliases; look at every code path
 - examples
 
 * API
+- define empty alias with define.alias
 - default modifier table, retrieved via this
 - define a set of objects

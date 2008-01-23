@@ -1,11 +1,10 @@
 require 'rake/packagetask'
-require 'rake/packagetask.rb'
 
 PROJECT_NAME = "fluently"
 RELEASE_VERSION = open('VERSION').read.chomp
 PACKAGE_NAME = "#{PROJECT_NAME}-#{RELEASE_VERSION}.tgz"
 
-IGNORE_FILES = Dir['**/#*#'] + Dir['**/.#*'] + Dir['build/**'] + Dir['working/**'] + %w{build working agenda.txt}
+IGNORE_FILES = Dir['**/#*#'] + Dir['**/.#*'] + Dir['build/**'] + Dir['working/**'] + Dir['pkg/*'] + %w{build working agenda.txt}
 PACKAGE_FILES = Dir['**/*'] - Dir['*.tgz'] - IGNORE_FILES
 
 task :docs => 'build/index.html'
@@ -17,8 +16,9 @@ end
 
 task :publish => [:package, :docs] do
   target = "osteele.com:osteele.com/sources/javascript/fluently"
-  sh "rsync README #{PACKAGE_NAME} #{target}"
+  sh "rsync pkg/* #{target}"
   sh "rsync build/index.html #{target}/index.html"
+  sh "rsync -a #{PACKAGE_FILES.join(' ')} #{target}"
 end
 
 task :clean do
