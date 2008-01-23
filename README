@@ -1,24 +1,25 @@
-HopKit lets you write functions like this:
-  function maker(arg) {
-    return HopKit.make(function(define) {
-      define('fn1', function() {});
-      define('fn2', function() {});
+= About
+
+Fluently is a JavaScript toolkit for creating "Fluent Interfaces"[http://martinfowler.com/bliki/FluentInterface.html].  With Fluently, you can create an object thus:
+    var o = Fluently.make(function(define) {
+      define('fn1', function() {console.info('called fn1')});
+      define('fn2', function() {console.info('called fn2')});
       define.empty('and');
       define.alias('fn3', 'fn1');
     });
-  }
-to define an object with chained methods that can be invoked like this:
-  maker(arg).fn1().fn2()
-  maker(arg).fn2().and.fn3()
+to define an object with chained methods, that can be invoked like this:
+  o.fn1().fn2()
+  o.fn2().fn3()
+  o.fn2().and.fn3()
 
 I use it to define the mocks, stubs, and expectations in LzTestKit.
-
-This is limbo project.  It's undocumented and has a few known bugs.
-It's not really ready for 3prime time; I'm releasing it as part of my
-2007 house cleaning.
 
 I've extracted a couple of files, from LzTestKit, into the 'examples'
 directory.  These don't run on their own, but at least they show the
 code in use.
 
-HopKit is licensed under the MIT License.
+= License
+
+Fluently is licensed under the MIT License.
+
+This package includes a distribution of jsspec, which is licensed under the GLPL.

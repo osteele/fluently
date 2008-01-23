@@ -1,7 +1,7 @@
 * Next
-- write rakefile
-- update from lztestkit
-- test cases
+- more test cases: modifiers, aliases; look at every code path
+- examples
 
-* Test cases
-can i use jsspec?
+* API
+- default modifier table, retrieved via this
+- define a set of objects
