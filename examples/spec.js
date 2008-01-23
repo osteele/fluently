@@ -5,7 +5,7 @@ function reset() {
     v2.set(null);
 }
 
-var object = HopKit.make(function(define) {
+var object = Fluently.make(function(define) {
     define('v1', function(v) {v1.set(v)}),
     define('v11', function() {v1.set(1)}),
     define('v12', function() {v1.set(2)});

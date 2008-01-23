@@ -87,7 +87,7 @@ JSSpec.Runner = function(target, name) {
 JSSpec.calling = function(target, name) {
     var runner = JSSpec.Runner.apply(JSSpec.Runner, arguments),
         options = runner._options,
-        runner = HopKit.make(function(define) {
+        runner = Fluently.make(function(define) {
             define('run', runner.run),
             define('call', runner.call);
             define('change', runner.change);
