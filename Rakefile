@@ -1,17 +1,23 @@
+require 'rake/packagetask'
+require 'rake/packagetask.rb'
+
+PROJECT_NAME = "fluently"
 RELEASE_VERSION = open('VERSION').read.chomp
-IGNORE = Dir['**/#*#'] + Dir['**/.#*'] + Dir['build/**'] + Dir['working/**'] + %w{build working agenda.txt}
+PACKAGE_NAME = "#{PROJECT_NAME}-#{RELEASE_VERSION}.tgz"
+
+IGNORE_FILES = Dir['**/#*#'] + Dir['**/.#*'] + Dir['build/**'] + Dir['working/**'] + %w{build working agenda.txt}
+PACKAGE_FILES = Dir['**/*'] - Dir['*.tgz'] - IGNORE_FILES
 
 task :docs => 'build/index.html'
 
-require 'rake/packagetask.rb'
 Rake::PackageTask.new("fluently", RELEASE_VERSION) do |p|
   p.need_tar = true
-  p.package_files.include Dir['**/*'] - Dir['*.tgz'] - IGNORE
+  p.package_files.include PACKAGE_FILES
 end
 
-task :publish => [ARCHIVE_NAME, :docs] do
+task :publish => [:package, :docs] do
   target = "osteele.com:osteele.com/sources/javascript/fluently"
-  sh "rsync README #{ARCHIVE_NAME} #{target}"
+  sh "rsync README #{PACKAGE_NAME} #{target}"
   sh "rsync build/index.html #{target}/index.html"
 end
 
@@ -23,7 +29,7 @@ end
 task 'build/index.html' => 'README' do |t|
   mkdir_p 'build'
   sh "rdoc --one-file -n build/index.html README"
-  url = "http://osteele.com/sources/openlaszlo/#{ARCHIVE_NAME}"
+  url = "http://osteele.com/sources/javascript/fluently/#{PACKAGE_NAME}"
   content = File.read(t.name).
     sub(/<title>.*?<\/title>/, '<title>Fluently</title>').
     sub(/<h2>File:.*?<\/h2>/, '').
