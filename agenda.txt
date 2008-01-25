@@ -7,3 +7,40 @@
 - define empty alias with define.alias
 - default modifier table, retrieved via this
 - define a set of objects
+
+* Release
+- create min version
+
+* Redesign
+** Base object
+- create base object
+- pass this as 'this' to defined methods
+- this has this.options, this.reset
+
+** Weaving
+- collect all the methods and options
+- walk the permutations; each one makes a copy of this and this.options
+
+setOptions(visited, options) =
+  for (var name in names)
+    visited.contains(name) || visit(name, visited, options)
+visit(name, visited, options) =
+  visited = visited.update(name, true)
+  options = update(options, name, true)
+
+function FiniteMap() {
+  return {
+    contains: function(key) {return false},
+    update: function(key, value) = {
+      return {
+        parent: this,
+        contains: function(k) {return key == k || this.parent.contains(k)},
+        update: this.update
+      }
+    }
+  }
+}
+
+** Option arguments
+- change options to functions; still attach properties
+
