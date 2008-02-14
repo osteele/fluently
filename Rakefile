@@ -16,9 +16,8 @@ end
 
 task :publish => [:package, :docs] do
   target = "osteele.com:osteele.com/sources/javascript/fluently"
-  sh "rsync pkg/* #{target}"
-  sh "rsync build/index.html #{target}/index.html"
-  sh "rsync -a #{PACKAGE_FILES.join(' ')} #{target}"
+  sh "rsync -av --delete . #{target} --exclude build"
+  sh "scp build/index.html #{target}/index.html"
 end
 
 task :clean do

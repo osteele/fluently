@@ -8,23 +8,17 @@ var Fluently = {
             finalizers = [],
             modifiers;
 
-        define.alias = function(target, source) {
-            path(target).set(host[source]);
-        }
-        define.synonym = function(target, source) {
+        define.alias = define.synonym = function(target, source) {
             if (arguments.length < 2)
                 host[target] = host;
             else
                 path(target).set(host[source]);
         }
-        define.empty = function(name) {
-            host[name] = host;
-        }
-        define.modifier = function(name) {
+        define.option = function(name) {
             modifiers[name] = false;
             defineSetter(name, modifiers, name, true);
         }
-        define.modifier.dictionary = function(object) {
+        define.option.dictionary = function(object) {
             modifiers = object;
         }
 

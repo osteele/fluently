@@ -4,7 +4,6 @@
 - examples
 
 * API
-- define empty alias with define.alias
 - default modifier table, retrieved via this
 - define a set of objects
 

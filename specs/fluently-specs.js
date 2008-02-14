@@ -24,7 +24,7 @@ describe('Definitions', {
         var chain = Fluently.make(function(define) {
             define('a', function() {return 1});
             define('b', function() {return 2});
-            define.empty('self');
+            define.alias('self');
             define.alias('alias_a', 'a');
             define.alias('alias_b', 'b');
         });
@@ -33,7 +33,7 @@ describe('Definitions', {
         value_of(chain.alias_b()).should_be(2);
         value_of(chain.self.alias_a()).should_be(1);
     },
-    'should apply modifiers': function() {
+    'should apply options': function() {
         var trace;
         var options = {};
         options.reset = function() {
@@ -57,9 +57,9 @@ describe('Definitions', {
             trace += spans.join('');
         }
         var chain = Fluently.make(function(define) {
-            define.modifier.dictionary(options);
-            define.modifier('o1');
-            define.modifier('o2');
+            define.option.dictionary(options);
+            define.option('o1');
+            define.option('o2');
             define('reset', function() {trace = ''; options.reset()});
             define('a', function() {t('a')});
             define('b', function() {t('b')});

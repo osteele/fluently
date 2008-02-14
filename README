@@ -2,6 +2,15 @@
 
 Fluently is a JavaScript toolkit for creating FluentInterfaces[http://martinfowler.com/bliki/FluentInterface.html].
 
+I use this to define the mocks, stubs, and expectations in LzTestKit[http://osteele.com/sources/openlaszlo/lztestkit].
+
+= Status
+
+Alpha.  I use this in other projects, but it's got a known bug (chained modifiers
+ignore all but the last one), and the API isn't final.
+
+= Examples
+
 With Fluently, you can do this:
     var o = Fluently.make(function(define) {
       define('fn1', function() {console.info('called fn1')});
@@ -26,13 +35,11 @@ You can also define modifiers, and aliases:
   o.fn1().and.fn2() // same as o.fn1().fn2()
   o.fn1().and.not.fn2() // options.not is set when fn2 is called
 
-I use this to define the mocks, stubs, and expectations in LzTestKit[http://osteele.com/sources/openlaszlo/lztestkit].
-
 I've extracted a couple of files, from LzTestKit, into the examples[http://osteele.com/sources/javascript/fluently/examples/]
 directory.  These don't run on their own, but at least they show the
 code in use.
 
-You can also see a range of examples by viewing the sources to the specs[http://osteele.com/sources/javascript/fluently/specs/].
+You can also see a range of examples by viewing the specs[http://osteele.com/sources/javascript/fluently/specs/fluently-specs.js].
 
 = Download
 
