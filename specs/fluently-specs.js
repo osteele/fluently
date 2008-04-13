@@ -19,6 +19,18 @@ describe('Definitions', {
         });
         value_of(chain.reset().a().trace()).should_be('a');
         value_of(chain.reset().a().b().trace()).should_be('ab');
+        value_of(chain.reset().a().b().a().trace()).should_be('aba');
+    },
+    'should define multipart paths': function() {
+        var capture = 1;
+        var chain = Fluently.make(function(define) {
+            define('a.b', function(n) { capture = n; });
+            define('a.c', function(n) { capture = n+1; });
+        });
+        chain.a.b(1);
+        value_of(capture).should_be(1);
+        chain.a.c(1);
+        value_of(capture).should_be(2);
     },
     'should recognize aliases': function() {
         var chain = Fluently.make(function(define) {
